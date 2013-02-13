@@ -18,7 +18,7 @@ Crafty.myGame.generateEntities = function() {
 		this.cards[c*2] = this.cards[c*2+1] = 'Card'+c%5+Math.floor(c/5);
 	
 	// Shuffle cards
-	//this.cards = Crafty.Util.arrayShuffle(this.cards);
+	this.cards = Crafty.Util.arrayShuffle(this.cards);
 	
 	this._cardSet = [];
 	for (var x=0; x < 6; x++) {
