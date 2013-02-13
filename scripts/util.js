@@ -9,6 +9,12 @@ function muteSound() {
 	Crafty.audio.toggleMute();
 }
 
+function testMode() {
+	Crafty.myGame.cardsToFind = 1;
+	Crafty.myGame.shuffle = false;
+	newGame();
+}
+
 function newGame() {
 	Crafty.scene('main');
 }
@@ -16,7 +22,10 @@ function highScores() {
 	Crafty.scene('highscores');
 }
 function clearScores() {
-	window.localStorage.removeItem('memoryScoreData');
+	var gameData = JSON.parse(window.localStorage.getItem('memoryScoreData'))||{scores:[]};
+	gameData.scores = [];
+	Crafty('Highscore').gameData = gameData;
+	window.localStorage.setItem('memoryScoreData', JSON.stringify(gameData));
 }
 
 Crafty.Util.arrayShuffle = function(o) {
