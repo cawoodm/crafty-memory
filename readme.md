@@ -1,5 +1,5 @@
 #Horsey Memory
-A simple memory game with a horsey theme made with CraftyJS
+A simple memory game with a horsey theme made with CraftyJS https://github.com/craftyjs/Crafty
 
 #Features
 * A `Flippable` component which covers up a card and allows it to be revealed
