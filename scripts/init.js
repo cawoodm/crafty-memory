@@ -4,5 +4,8 @@ Crafty.myGame.H = 20+5+(100+5)*5; // Margin 5, Spacing 5, 100 Tilesize, 5 Cards 
 
 Crafty.init(Crafty.myGame.W, Crafty.myGame.H);
 
+Crafty.myGame.cardsToFind = 15;
+Crafty.myGame.shuffle = true;
+
 // Brown background
-Crafty.background('rgb(100,178,205)');
+Crafty.background('rgb(110,188,208)');

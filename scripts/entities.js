@@ -18,8 +18,8 @@ Crafty.myGame.generateEntities = function() {
 		this.cards[c*2] = this.cards[c*2+1] = 'Card'+c%5+Math.floor(c/5);
 	
 	// Shuffle cards
-	this.cards = Crafty.Util.arrayShuffle(this.cards);
-	
+	if (Crafty.myGame.shuffle) this.cards = Crafty.Util.arrayShuffle(this.cards);
+
 	this._cardSet = [];
 	for (var x=0; x < 6; x++) {
 		this._cardSet[x] = [];
@@ -27,7 +27,6 @@ Crafty.myGame.generateEntities = function() {
 			this._cardSet[x][y] = Crafty.e(this.cards[y*6+x]+', 2D, DOM, Mouse')
 				.setName(this.cards[y*6+x])
 				.attr({x: 5+x*105, y: 20+5+y*105, w:100, h: 100})
-				//.unbind('Click')
 				.bind('Click', function(e) {
 					Crafty.trigger('CardClicked', this);
 				})
@@ -37,41 +36,31 @@ Crafty.myGame.generateEntities = function() {
 	}
 	
 	// Scoreboard
-	var sb = Crafty.e('2D, DOM, Text, Scoreboard, Highscore')
+	(Crafty('Scoreboard').length>0?Crafty('Scoreboard'):Crafty.e('DOM, Text, Scoreboard, Highscore')
 		.attr({x: 3, y:3, w: 100, h: 20, z: 3})
 		.css({
 			"color":				"white",
-			"font-family":	"Helvetica",
 			"font-size":		"14px"
-		})
-		.setPlayer(window.prompt('Please type your name:'))
+		}))
+		.restart()
 		.show()
+		.setPlayer()
 	;
-	sb.attach(
-		Crafty.e('2D, DOM, Color')
-			.attr({x: sb._x-3, y: sb._y, w: sb.w, h: 20, alpha: 0.5, z:sb._z-1})
-			.setName('Board BG')
-			.color('rgb(200, 200, 200)')
-	);
 	
 	// Player's Name
-	var pn = Crafty.e('DOM, Text')
+	(Crafty('PlayerName').length>0?Crafty('PlayerName'):Crafty.e('DOM, Text, Persist, Mouse, PlayerName')
 		.attr({x: Crafty.myGame.W-150-8, y:3, w: 150, h: 20, z: 3})
 		.css({
 			"color":					"white",
-			"font-family":		"Helvetica",
 			"font-size":			"14px",
 			"text-align":			"right",
 			"padding-right":	"10px"
+		}))
+		.bind('Click', function() {
+			var sb = Crafty('Highscore');
+			sb.setPlayer(window.prompt('Please type your name:', sb.getPlayer()));
+			this.text('Player: '+sb.getPlayer());
 		})
-		.text(Crafty('Highscore').playerName)
-	;
-	// Background to player's name
-	pn.attach(
-		Crafty.e('2D, DOM, Color')
-			.attr({x: pn._x+3, y: pn._y, w: pn.w, h: pn.h, alpha: 0.5, z:sb._z-1})
-			.setName('Board BG')
-			.color('rgb(200, 200, 200)')
-	);
+		.text('Player: '+Crafty('Scoreboard').getPlayer());
 	
 };

@@ -1185,30 +1185,31 @@
         * @returns True or false depending on if a callback was unbound
         * Unbind any event from any entity or global event.
         */
-        unbind: function (event, callback) {
-            var hdl = handlers[event], h, i, l;
+				unbind: function(event, callback) {
+				  var hdl = handlers[event],
+				    h, i, l, res = false;
 
-            //loop over every object bound
-            for (h in hdl) {
-                if (!hdl.hasOwnProperty(h)) continue;
+				  //loop over every object bound
+				  for (h in hdl) {
+				    if (!hdl.hasOwnProperty(h)) continue;
 
-                //if passed the ID
-                if (typeof callback === "number") {
-                    delete hdl[h][callback];
-                    return true;
-                }
+				    //if passed the ID
+				    if (typeof callback === "number") {
+				      delete hdl[h][callback];
+				      return true;
+				    }
 
-                //loop over every handler within object
-                for (i = 0, l = hdl[h].length; i < l; i++) {
-                    if (hdl[h][i] === callback || typeof callback === 'undefined') {
-                        delete hdl[h][i];
-                        return true;
-                    }
-                }
-            }
+				    //loop over every handler within object
+				    for (i = 0, l = hdl[h].length; i < l; i++) {
+				      if (hdl[h][i] === callback || typeof callback === 'undefined') {
+				        delete hdl[h][i];
+				        res = true;
+				      }
+				    }
+				  }
 
-            return false;
-        },
+				  return res;
+				},
 
         /**@
         * #Crafty.frame

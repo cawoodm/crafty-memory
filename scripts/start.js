@@ -27,11 +27,14 @@ Crafty.scene("main", function() {
 
 Crafty.scene("highscores", function() {
 
-  var sb = JSON.parse(window.localStorage.getItem('memoryScoreData'))||[];
-  sb.forEach(function(s, i) {
+  var sb = JSON.parse(window.localStorage.getItem('memoryScoreData'))||{scores:[]};
+  var css = {
+		
+  };
+  sb.scores.forEach(function(s, i) {
 		Crafty.e('2D, DOM, Text')
 			.attr({x: 100, y: 100+i*30, w: 100, h: 30})
-			.text(s.name)
+			.text((i+1) + '. ' + s.name)
 		;
 		Crafty.e('2D, DOM, Text')
 			.attr({x: 200, y: 100+i*30, w: 100, h: 30})
