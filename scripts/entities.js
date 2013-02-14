@@ -26,7 +26,7 @@ Crafty.myGame.generateEntities = function() {
 		for (var y=0; y < 5; y++) {
 			this._cardSet[x][y] = Crafty.e(this.cards[y*6+x]+', 2D, DOM, Mouse')
 				.setName(this.cards[y*6+x])
-				.attr({x: 5+x*105, y: 20+5+y*105, w:100, h: 100})
+				.attr({x: 5+x*110, y: 20+5+y*110, w:100, h: 100})
 				.bind('Click', function(e) {
 					Crafty.trigger('CardClicked', this);
 				})

@@ -9,7 +9,6 @@ var GameControl = function() {
 	
 	Crafty.unbind('CardClicked');
 	Crafty.bind('CardClicked', function(en) {
-	console.log('CardClicked');
 		var card = en._entityName;
 		if (!en.has('Flippable')) return;			// Already flipped
 		if (!Card1) {
@@ -35,7 +34,6 @@ var GameControl = function() {
 		} else {
 			flipBack();
 		}
-		
 	});
 	
 	
